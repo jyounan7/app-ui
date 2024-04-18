@@ -16,7 +16,7 @@ pipeline {
                     git 'https://github.com/jyounan7/app-ui.git'
                     
                     // Build Docker image
-                    sh docker.build("${DOCKER_IMAGE_NAME}:latest", "-f Dockerfile .")
+                    sh docker.build("${DOCKER_IMAGE_NAME}:latest" .")
                 }
             }
         }
