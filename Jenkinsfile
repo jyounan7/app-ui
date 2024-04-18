@@ -9,39 +9,28 @@ pipeline {
     }
     
     stages {
-        stage('gitclone') {
+        stage('Build Docker Image') {
             steps {
-                git 'https://github.com/jyounan7/app-ui.git'
-            }
-        }
-        
-        stage('Build') {
-            steps {
+                git 'https://github.com/jyounan7/book-direct.git'
                 script {
                     // Build Docker image
-                    sh 'docker build -t app/test:latest .'
+                    docker.build("${DOCKER_IMAGE_NAME}:latest", "-f Dockerfile .")
                 }
             }
         }
-
         
-        stage('Push to JFrog Artifactory') {
+        stage('Tag and Push to JFrog Artifactory') {
             steps {
                 script {
                     // Tag Docker image
-                    def dockerImageTag = "${JFROG_URL}/${REPOSITORY_NAME}/${DOCKER_IMAGE_NAME}:latest"
-                    docker.image("${DOCKER_IMAGE_NAME}:latest").tag(dockerImageTag)
+                    docker.image("${DOCKER_IMAGE_NAME}:latest").tag("${JFROG_URL}/${REPOSITORY_NAME}/${DOCKER_IMAGE_NAME}:latest")
                     
-                    // Log in to JFrog Container Registry
-                    withCredentials([usernamePassword(credentialsId: 'JFROG_CREDS', passwordVariable: 'JFROG_PASSWORD', usernameVariable: 'JFROG_USERNAME')]) {
-                        sh "docker login -u ${JFROG_USERNAME} -p ${JFROG_PASSWORD} ${JFROG_URL}"
+                    // Push Docker image to JFrog Artifactory
+                    docker.withRegistry(JFROG_URL, JFROG_CREDS) {
+                        docker.image("${JFROG_URL}/${REPOSITORY_NAME}/${DOCKER_IMAGE_NAME}:latest").push()
                     }
-                    
-                    // Push Docker image to JFrog Container Registry
-                    sh "docker push ${dockerImageTag}"
                 }
             }
         }
     }
 }
-
