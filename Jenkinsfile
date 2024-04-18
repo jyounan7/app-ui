@@ -15,7 +15,8 @@ pipeline {
                 //sh  "docker.build ${DOCKER_REGISTRY} ${DOCKER_IMAGE_NAME}:${env.BUILD_NUMBER}/${env.BRANCH_NAME}"
                 //sh "docker login -u ${JFROG_USERNAME} -p ${JFROG_PASSWORD} ${DOCKER_REGISTRY}"
                 //sh "docker login -u $JF_REGISTRY_USER -p $JFROG_PASSWORD"
-                sh "docker login -u admin -p password http://192.168.1.10:8082/artifactory/devops"
+                //sh "docker login -u admin -p password http://192.168.1.10:8082/artifactory/devops"
+                sh "docker login -u admin -p password http://192.168.1.10:8082/artifactory/app"
                 //sh "docker build -f Dockerfile . -t app admin/devops:${BUILD_NUMBER}"
                 sh "docker build -f Dockerfile . -t  192.168.1.10/app/app:${BUILD_NUMBER}"
                 
