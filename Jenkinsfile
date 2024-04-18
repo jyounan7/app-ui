@@ -23,7 +23,8 @@ pipeline {
         }
         stage('Push Docker Image') {
             steps {
-                sh "docker push devops:$BUILD_NUMBER"
+                //sh "docker push devops:$BUILD_NUMBER"
+                sh "docker push admin/app:${BUILD_NUMBER}"
                 
                 //sh  "docker.push ${DOCKER_REGISTRY}/${DOCKER_IMAGE_NAME}:${env.BUILD_NUMBER}/${env.BRANCH_NAME}"
             }
