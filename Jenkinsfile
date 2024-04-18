@@ -9,6 +9,11 @@ pipeline {
     }
     
     stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
         stage('Build Docker Image') {
             steps {
                 git 'https://github.com/jyounan7/book-direct.git'
