@@ -11,7 +11,7 @@ pipeline {
     stages {
         stage('Build Docker Image') {
             steps {
-                git 'https://github.com/jyounan7/app-ui.git'
+                git 'git@github.com:jyounan7/app-ui.git'
                 script {
                     // Build Docker image
                     docker.build("${DOCKER_IMAGE_NAME}:latest", "-f Dockerfile .")
