@@ -16,7 +16,7 @@ pipeline {
                 //sh "docker login -u ${JFROG_USERNAME} -p ${JFROG_PASSWORD} ${DOCKER_REGISTRY}"
                 //sh "docker login -u $JF_REGISTRY_USER -p $JFROG_PASSWORD"
                 sh "docker login -u admin -p password http://192.168.1.10:8082/artifactory/devops"
-                sh "docker build -f Dockerfile . -t devops:$BUILD_NUMBER 192.168.1.10:8082/artifactory/devops"
+                sh "docker build -f Dockerfile . -t devops:$BUILD_NUMBER"
             }
         }
         stage('Push Docker Image') {
