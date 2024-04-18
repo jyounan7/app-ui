@@ -23,6 +23,15 @@ pipeline {
                 }
             }
         }
+
+         stage('Build') {
+            steps {
+                script {
+                    // Build Docker image
+                    sh 'docker build -t app/test:latest .'
+                }
+            }
+        }
         
         stage('Push to JFrog Artifactory') {
             steps {
