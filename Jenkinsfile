@@ -2,40 +2,26 @@ pipeline{
 
 	agent any
 
-	environment {
-		JFROG_CREDS = credentials('jcr')
+	 environment {
+        JFROG_CREDS = credentials('jcr')
         DOCKER_IMAGE_NAME = 'app'
         JFROG_URL = 'http://192.168.1.10:8081/artifactory'
         REPOSITORY_NAME = 'app'
-	}
+    }}
 
 	stages {
 	    	stage('gitclone') {
 
 			steps {
-				git 'https://github.com/jyounan7/app-ui.git'
+				git 'https://github.com/YasserAhmedMoh/Docker_Demo.git'
 			}
 		}
 		stage('Build') {
 
 			steps {
 				
-		                sh docker.build("${DOCKER_IMAGE_NAME}:latest" .)
+                sh docker.build("${DOCKER_IMAGE_NAME}:latest" .)
 			}
 		}
 
-	stage('Tag and Push to JFrog Artifactory') {
-            steps {
-                script {
-                    // Tag Docker image
-                    docker.image("${DOCKER_IMAGE_NAME}:latest").tag("${JFROG_URL}/${REPOSITORY_NAME}/${DOCKER_IMAGE_NAME}:latest")
-                    
-                    // Push Docker image to JFrog Artifactory
-                    docker.withRegistry(JFROG_URL, JFROG_CREDS) {
-                        docker.image("${JFROG_URL}/${REPOSITORY_NAME}/${DOCKER_IMAGE_NAME}:latest").push()
-                    }
-                }
-            }
-        }
-    }
-}
+	
