@@ -1,3 +1,5 @@
+groovy
+Copy code
 pipeline {
     agent any
     
@@ -11,8 +13,10 @@ pipeline {
     stages {
         stage('Build Docker Image') {
             steps {
-                git 'git@github.com:jyounan7/app-ui.git'
                 script {
+                    // Clone the Git repository
+                    git 'git@github.com:jyounan7/app-ui.git'
+                    
                     // Build Docker image
                     docker.build("${DOCKER_IMAGE_NAME}:latest", "-f Dockerfile .")
                 }
