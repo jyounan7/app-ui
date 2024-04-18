@@ -9,11 +9,11 @@ pipeline {
     }
     
     stages {
-        //stage('gitclone') {
-            //steps {
-             //   git 'https://github.com/jyounan7/app-ui.git'
-          //  }
-      //  }
+        stage('gitclone') {
+            steps {
+                git 'https://github.com/jyounan7/app-ui.git'
+            }
+        }
         
         stage('Build') {
             steps {
