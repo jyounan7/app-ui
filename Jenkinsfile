@@ -5,9 +5,9 @@ pipeline {
     
     environment {
         JFROG_CREDS = credentials('jcr')
-        DOCKER_IMAGE_NAME = 'test'
+        DOCKER_IMAGE_NAME = 'app'
         JFROG_URL = 'http://192.168.1.10:8081/artifactory'
-        REPOSITORY_NAME = 'app-ui'
+        REPOSITORY_NAME = 'app'
     }
     
     stages {
@@ -15,7 +15,7 @@ pipeline {
             steps {
                 script {
                     // Clone the Git repository
-                    git 'git@github.com:jyounan7/app-ui.git'
+                    git 'https://github.com/jyounan7/app-ui.git'
                     
                     // Build Docker image
                     docker.build("${DOCKER_IMAGE_NAME}:latest", "-f Dockerfile .")
