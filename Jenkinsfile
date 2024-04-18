@@ -19,7 +19,7 @@ pipeline {
             steps {
                 script {
                     // Build Docker image
-                    sh 'docker build -t app/test:latest .
+                    sh 'docker build -t app/test:latest .'
                 }
             }
         }
