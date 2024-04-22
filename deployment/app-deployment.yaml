@@ -14,8 +14,15 @@ spec:
       labels:
         app: flask
     spec:
+      dnsPolicy: Default
       containers:
       - name: flask-app
         image: 192.168.1.10:8082/app/app:27
+        imagePullPolicy: Always
         ports:
         - containerPort: 5000
+        env:
+        - name: JCR_HOST
+          value: "192.168.1.10"
+        - name: JCR_PORT
+          value: "8082"
